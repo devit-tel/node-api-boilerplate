@@ -28,6 +28,7 @@
     "koa-compress": "^3.0.0",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.10",
+    "mongoose": "^5.0.17",
     "stack-trace": "^0.0.10",
     "util": "^0.10.3",
     "winston": "^2.4.2",
