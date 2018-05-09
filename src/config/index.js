@@ -1,6 +1,6 @@
-import * as database from './database'
-import * as example from './example'
-import * as system from './system'
+import database from './database'
+import example from './example'
+import system from './system'
 const combineConfig = {
   database,
   example,

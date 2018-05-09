@@ -1,3 +1,4 @@
+import dotenvConfig from 'dotenv/config'
 import Koa from 'koa';
 import config from './config';
 import { getLogger } from './libraries/logger';
