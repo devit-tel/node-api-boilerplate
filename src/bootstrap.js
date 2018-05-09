@@ -22,5 +22,5 @@ accessLogger(app)
 errorHandler(app)
 responseFormatter(app)
 router(app)
-
+logger(`starting server on port ${config.system.port}`)
 app.listen(config.system.port);

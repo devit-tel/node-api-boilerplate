@@ -1,8 +1,11 @@
 import Router from 'koa-router';
 import { NotFoundError, ErrorCode } from './libraries/error'
 import apiV1Router from './controllers/v1/router'
+import systemRouter from './controllers/system/router'
+
 const router = new Router();
 
+router.use('/system', systemRouter.routes())
 router.use('/api/v1', apiV1Router.routes())
 
 const connectMiddleware = (app) => {

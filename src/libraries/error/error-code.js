@@ -1,4 +1,8 @@
 const errorCode = {
+  SUCCESS: {
+    CODE: 'SUCCESS',
+    STATUS: 200,
+  },
   INTERNAL_SERVER_ERROR: {
     CODE: 'INTERNAL_SERVER_ERROR',
     STATUS: 500,
