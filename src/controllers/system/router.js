@@ -1,6 +1,6 @@
-import Router from 'koa-router';
+import Router from 'koa-router'
 import * as controllers from './controller'
-const router = new Router();
+const router = new Router()
 
 router.get('/', controllers.main)
 
