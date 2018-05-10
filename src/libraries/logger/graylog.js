@@ -120,7 +120,7 @@ var middleware = async (ctx, next) => {
         status: ctx.status,
         url: ctx.originalUrl,
         body: (ctx.status > 299 || ctx.status < 200) ? JSON.stringify(ctx.body, null, 2) : undefined,
-        stack: (ctx.body && ctx.body.stack) ? ctx.body.stack : undefined,
+        stack: (ctx.stack) ? ctx.stack : undefined,
         responseTime: ms,
     });
 }
