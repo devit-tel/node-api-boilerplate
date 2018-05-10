@@ -7,7 +7,7 @@ const middleware = async (ctx, next) => {
     ctx.body = {
       status: 200,
       code: ErrorCode.SUCCESS.CODE,
-      body: ctx.body
+      data: ctx.body
     }
   }
 }
