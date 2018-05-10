@@ -20,7 +20,7 @@ import {
     const app = new Koa();
     logger("set a middleware to main app")
 
-    // Plug middleware
+    // Plug "system middlewares"
     bodyParser(app)
     compress(app)
     cors(app)
