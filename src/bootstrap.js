@@ -1,8 +1,8 @@
 import path from 'path'
 import Koa from 'koa'
 import { load } from '@spksoft/koa-decorator'
+import gracefulShutdown from 'http-graceful-shutdown'
 import config from './config'
-// import mongooseClient from './libraries/database'
 import { getLogger } from './libraries/logger'
 import { NotFoundError, ErrorCode } from './libraries/error'
 import {
@@ -44,8 +44,9 @@ import {
     //   logger(`Connected to ${dbClient.host}:${dbClient.port}/${dbClient.name}`)
     // }
 
-    app.listen(config.system.port)
+    const server = app.listen(config.system.port)
     logger(`starting server on port ${config.system.port}`)
+    gracefulShutdown(server)
   } catch (err) {
     console.error('Unable to start server!', err)
   }

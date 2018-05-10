@@ -26,6 +26,7 @@
     "debug": "^3.1.0",
     "dotenv": "^5.0.1",
     "gelf-pro": "^1.2.2",
+    "http-graceful-shutdown": "^2.1.1",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.0",
     "koa-compress": "^3.0.0",
