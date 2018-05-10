@@ -5,9 +5,7 @@ import {
 } from '../libraries/error';
 const middleware = async (ctx, next) => {
   try {
-    console.log('error : before ctx.body', ctx.body)
     await next();
-    console.log('error : after ctx.body', ctx.body)
     if (ctx.status !== 200 && ctx.status !== 201) {
       switch (ctx.status) {
         case 404:
