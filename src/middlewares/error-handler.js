@@ -1,3 +1,4 @@
+import config from '../config'
 import {
   ErrorCode,
   NotFoundError,
@@ -21,6 +22,10 @@ const middleware = async (ctx, next) => {
 }
 
 const handler = (err, ctx) => {
+  const { graylogErrorStack, responseErrorStack } = config.system
+  if(graylogErrorStack === true) {
+    ctx.stack = err.stack || null
+  }
   if(err.code) {
     ctx.status = err.status
     ctx.body = {
@@ -28,7 +33,7 @@ const handler = (err, ctx) => {
       name: err.name || null,
       code: err.code || null,
       message: err.message || null,
-      errors: err.errors || null,
+      stack: (responseErrorStack !== false) ? err.stack || null : null,
     }
   } else {
     ctx.status = ErrorCode.INTERNAL_SERVER_ERROR.STATUS
@@ -37,7 +42,7 @@ const handler = (err, ctx) => {
       name: err.name || null,
       code: ErrorCode.INTERNAL_SERVER_ERROR.CODE,
       message: err.message || null,
-      errors: err.errors || null,
+      stack: (responseErrorStack !== false) ? err.stack || null : null,
     }
   }
 }
