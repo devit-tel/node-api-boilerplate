@@ -9,11 +9,11 @@ import validate from '../../../libraries/koa-validator-decorators'
 export default class HelloWorldController{
 
   @route('/', HttpMethod.POST)
-  // @validate({
-  //   body: yup.object().shape({
-  //     name: yup.number().required(),
-  //   }),
-  // })
+  @validate({
+    body: yup.object().shape({
+      name: yup.number().required(),
+    }),
+  })
   async main(ctx) {
     ctx.body = {
       'hello': 'world'
