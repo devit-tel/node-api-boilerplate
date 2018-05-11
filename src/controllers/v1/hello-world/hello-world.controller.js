@@ -3,7 +3,7 @@ import {
   route,
 } from '@spksoft/koa-decorator';
 import yup from 'yup'
-import validate from '../../../libraries/koa-validator-decorators'
+import validate from '@spksoft/koa-validator-decorator'
 
 @route('/v1/hello-world')
 export default class HelloWorldController{
