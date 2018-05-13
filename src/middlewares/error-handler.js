@@ -6,7 +6,7 @@ import {
 } from '../libraries/error';
 const middleware = async (ctx, next) => {
   try {
-    await next();
+    await next()
     if (ctx.status !== 200 && ctx.status !== 201) {
       switch (ctx.status) {
         case 404:
@@ -22,14 +22,15 @@ const middleware = async (ctx, next) => {
 }
 
 const handler = (err, ctx) => {
+  console.log('========= ERR =========', err)
   const { graylogErrorStack, responseErrorStack } = config.system
   if(graylogErrorStack === true) {
     ctx.stack = err.stack || null
   }
   if(err.code) {
-    ctx.status = err.status
+    ctx.status = (Number.isInteger(err.status)) ? err.status : ErrorCode.INTERNAL_SERVER_ERROR.STATUS
     ctx.body = {
-      status: err.status || null,
+      status: ctx.status,
       name: err.name || null,
       code: err.code || null,
       message: err.message || null,
