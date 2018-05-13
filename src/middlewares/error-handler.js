@@ -22,7 +22,6 @@ const middleware = async (ctx, next) => {
 }
 
 const handler = (err, ctx) => {
-  console.log('========= ERR =========', err)
   const { graylogErrorStack, responseErrorStack } = config.system
   if(graylogErrorStack === true) {
     ctx.stack = err.stack || null
