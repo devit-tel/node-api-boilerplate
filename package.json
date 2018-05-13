@@ -24,6 +24,7 @@
     "@koa/cors": "2",
     "@spksoft/koa-decorator": "^1.2.2",
     "@spksoft/koa-validator-decorator": "^1.0.0",
+    "@spksoft/mongoose-repository": "^1.0.0",
     "debug": "^3.1.0",
     "dotenv": "^5.0.1",
     "gelf-pro": "^1.2.2",

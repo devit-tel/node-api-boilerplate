@@ -1,5 +1,5 @@
 import UserModel from './user.model'
-import { MongooseBaseRepository } from '../../libraries/database/repositories/index'
+import MongooseBaseRepository from '@spksoft/mongoose-repository'
 
 class UserRepository extends MongooseBaseRepository {
 
