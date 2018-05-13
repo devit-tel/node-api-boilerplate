@@ -1,5 +1,6 @@
 import path from 'path'
 import Koa from 'koa'
+import mongooseClient from './libraries/database/client/mongoose'
 import { load } from '@spksoft/koa-decorator'
 import gracefulShutdown from 'http-graceful-shutdown'
 import config from './config'
@@ -38,11 +39,11 @@ import {
     }))
 
     // // Connect to database
-    // let dbClient = null
-    // if (config.database.databaseURL !== undefined && config.database.databaseURI !== null) {
-    //   dbClient = await mongooseClient(databaseConfig)
-    //   logger(`Connected to ${dbClient.host}:${dbClient.port}/${dbClient.name}`)
-    // }
+    let dbClient = null
+    if (config.database.databaseURI !== undefined && config.database.databaseURI !== null) {
+      dbClient = await mongooseClient(config.database.databaseURI)
+      logger(`Connected to ${dbClient.host}:${dbClient.port}/${dbClient.name}`)
+    }
 
     const server = app.listen(config.system.port)
     logger(`starting server on port ${config.system.port}`)

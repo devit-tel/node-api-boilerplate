@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { getLogger } from '../logger'
+import { getLogger } from '../../logger'
 
 const logger = getLogger('app:database')
 
