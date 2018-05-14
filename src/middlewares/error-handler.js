@@ -13,7 +13,7 @@ const middleware = async (ctx, next) => {
           throw new NotFoundError('URL not found or method not allow', ErrorCode.URI_NOT_FOUND.CODE)
           break
         default:
-        throw new InternalServerError('Somethin went wrong')
+          throw new InternalServerError('Somethin went wrong')
       }
     }
   } catch (err) {
