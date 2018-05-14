@@ -11,5 +11,5 @@ export {
   cors,
   accessLogger,
   errorHandler,
-  responseFormatter,
+  responseFormatter
 }

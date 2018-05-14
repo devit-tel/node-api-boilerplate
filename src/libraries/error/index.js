@@ -13,5 +13,5 @@ export {
   NotFoundError,
   UnauthorizedError,
   ValidationError,
-  InternalServerError,
+  InternalServerError
 }

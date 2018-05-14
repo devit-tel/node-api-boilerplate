@@ -12,14 +12,14 @@ import {
   cors,
   accessLogger,
   errorHandler,
-  responseFormatter,
+  responseFormatter
 } from './middlewares'
 
 (async () => {
   try {
     const logger = getLogger('app:bootstrap')
-    const app = new Koa();
-    logger("set a middleware to main app")
+    const app = new Koa()
+    logger('set a middleware to main app')
 
     // Plug "system middlewares"
     bodyParser(app)
@@ -30,7 +30,7 @@ import {
     responseFormatter(app)
 
     // load router
-    const apiRouter = load(path.resolve(__dirname, 'controllers'), '.controller.js');
+    const apiRouter = load(path.resolve(__dirname, 'controllers'), '.controller.js')
     app.use(apiRouter.routes())
     app.use(apiRouter.allowedMethods({
       throw: true,
@@ -51,4 +51,4 @@ import {
   } catch (err) {
     console.error('Unable to start server!', err)
   }
-})();
+})()

@@ -1,4 +1,3 @@
-import dotenv from 'dotenv'
 import debug from 'debug'
 import graylog from './graylog'
 

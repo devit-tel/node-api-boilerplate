@@ -1,9 +1,9 @@
-var winston = require('winston');
-var util = require('util');
+var winston = require('winston')
+var util = require('util')
 var stackTrace = require('stack-trace')
-var winston_koa = require('winston-koa-logger');
-var WinstonGraylog2 = require('winston-graylog2');
-var gelfPro = require('gelf-pro');
+var winston_koa = require('winston-koa-logger')
+var WinstonGraylog2 = require('winston-graylog2')
+var gelfPro = require('gelf-pro')
 var config = require('../../config')
 var _ = require('lodash')
 
@@ -13,7 +13,7 @@ gelfPro.setConfig({
     fields: {
         SERVICE: projectName,
         APP_ENV: nodeENV,
-        BASE_URI: baseURI,
+        BASE_URI: baseURI
     }, // optional; default fields for all messages
     filter: [], // optional; filters to discard a message
     transform: [], // optional; transformers for a message
@@ -32,14 +32,14 @@ gelfPro.setConfig({
         timeout: 1000, // tcp only; optional; default: 10000 (10 sec)
 
         // udp adapter example
-        protocol: 'udp4', // udp only; optional; udp adapter: udp4, udp6; default: udp4
+        protocol: 'udp4' // udp only; optional; udp adapter: udp4, udp6; default: udp4
 
         // tcp-tls adapter example
         //   key: fs.readFileSync('client-key.pem'), // tcp-tls only; optional; only if using the client certificate authentication
         //   cert: fs.readFileSync('client-cert.pem'), // tcp-tls only; optional; only if using the client certificate authentication
         //   ca: [fs.readFileSync('server-cert.pem')] // tcp-tls only; optional; only for the self-signed certificate
     }
-});
+})
 
 var levelsMapping = {
     emerg: 'emergency',
@@ -51,10 +51,10 @@ var levelsMapping = {
     notice: 'notice',
     info: 'info',
     debug: 'debug'
-};
+}
 
 var getMessageLevel = function (winstonLevel) {
-    return levelsMapping[winstonLevel] || levelsMapping.info;
+    return levelsMapping[winstonLevel] || levelsMapping.info
 }
 
 var processMeta = function (meta) {
@@ -69,50 +69,47 @@ var processMeta = function (meta) {
         callers = "Can't extract caller" + e
     }
     return _.assign({}, meta, {
-        callers: callers,
+        callers: callers
     })
 }
 
 var Graylog2 = winston.transports.Graylog2 = function (options) {
-    winston.Transport.call(this, options);
-};
+    winston.Transport.call(this, options)
+}
 
-util.inherits(Graylog2, winston.Transport);
+util.inherits(Graylog2, winston.Transport)
 
 Graylog2.prototype.log = function (level, msg, meta, callback) {
-    gelfPro[getMessageLevel(level)](msg, processMeta(meta));
-    callback(null, true);
-};
+    gelfPro[getMessageLevel(level)](msg, processMeta(meta))
+    callback(null, true)
+}
 
-
-
-
-var logger = new (winston.Logger)({});
+var logger = new (winston.Logger)({})
 if (_.includes(['development', 'dev', '', undefined], nodeENV)) {
     logger.add(winston.transports.Console, {
-        json: true,
+        json: true
     })
 }
 if (_.includes(['staging', 'production'], nodeENV)) {
     logger.add(winston.transports.Graylog2, {})
 }
 var middleware = async (ctx, next) => {
-    const start = new Date();
-    await next();
-    const ms = new Date() - start;
+    const start = new Date()
+    await next()
+    const ms = new Date() - start
     if (ctx.originalUrl.indexOf('/system/health') > -1 && ctx.status === 200) {
         return
     }
 
-    let logLevel;
+    let logLevel
     if (ctx.status >= 500) {
-        logLevel = 'error';
+        logLevel = 'error'
     }
     if (ctx.status >= 400) {
-        logLevel = 'warn';
+        logLevel = 'warn'
     }
     if (ctx.status >= 100) {
-        logLevel = 'info';
+        logLevel = 'info'
     }
 
     let msg = `${ctx.method} ${ctx.originalUrl} ${ctx.status} ${ms}ms`
@@ -121,8 +118,8 @@ var middleware = async (ctx, next) => {
         url: ctx.originalUrl,
         body: (ctx.status > 299 || ctx.status < 200) ? JSON.stringify(ctx.body, null, 2) : undefined,
         stack: (ctx.stack) ? ctx.stack : undefined,
-        responseTime: ms,
-    });
+        responseTime: ms
+    })
 }
 
 module.exports = {
@@ -135,5 +132,5 @@ module.exports = {
     notice: logger.notice,
     info: logger.info,
     debug: logger.debug,
-    middleware: middleware,
+    middleware: middleware
 }
