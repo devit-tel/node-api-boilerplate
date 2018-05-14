@@ -26,4 +26,10 @@ export default class HelloWorldController {
       'hello': 'world'
     }
   }
+
+  @route('/', HttpMethod.GET)
+  async get (ctx) {
+    const result = await User.find({username: 'spksoft'})
+    ctx.body = result
+  }
 }

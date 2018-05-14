@@ -111,9 +111,9 @@
   dependencies:
     yup "^0.24.1"
 
-"@spksoft/mongoose-repository@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@spksoft/mongoose-repository/-/mongoose-repository-1.0.0.tgz#9cd7bdaecca41fefb194e15afcea46cc20335525"
+"@spksoft/mongoose-repository@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@spksoft/mongoose-repository/-/mongoose-repository-1.0.5.tgz#dddfb97ee968da3015198d8d42d234bb00b95935"
 
 "@types/accepts@*":
   version "1.3.5"
