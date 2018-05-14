@@ -8,17 +8,21 @@
     "start-production": "npm run build && node build/bootstrap.js",
     "start-dev": "DEBUG=koa*,worker,app* nodemon src/bootstrap.js --exec babel-node -e js",
     "clean": "rm -rf build && mkdir build",
-    "build": "npm run clean && babel -d ./build ./src -s"
+    "build": "npm run clean && babel -d ./build ./src -s",
+    "test": "jest"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
     "babel-plugin-transform-decorators": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "jest": "^22.4.3",
-    "nodemon": "^1.17.4"
+    "nodemon": "^1.17.4",
+    "regenerator-runtime": "^0.11.1"
   },
   "dependencies": {
     "@koa/cors": "2",
