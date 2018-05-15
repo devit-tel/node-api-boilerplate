@@ -29,7 +29,14 @@ export default class HelloWorldController {
 
   @route('/', HttpMethod.GET)
   async get (ctx) {
-    const result = await User.find({username: 'spksoft'})
+    const result = await User.find({})
+    ctx.body = result
+  }
+
+  @route('/', HttpMethod.PATCH)
+  async update (ctx) {
+    const { username, password } = ctx.request.body
+    const result = await User.update({username}, {password})
     ctx.body = result
   }
 }
