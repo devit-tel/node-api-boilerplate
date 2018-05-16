@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "npm run start-dev",
+    "start": "npm run start-production",
     "start-production": "npm run build && node build/index.js",
     "start-dev": "DEBUG=koa*,worker,app* nodemon src/index.js --exec babel-node -e js",
     "clean": "rm -rf build && mkdir build",
