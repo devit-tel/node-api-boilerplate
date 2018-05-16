@@ -47,9 +47,15 @@ const handler = (err, ctx) => {
   }
 }
 
-const connectMiddleware = (app) => {
-  app.use(middleware)
-  app.on('error', handler)
+const errorMiddleware = () => {
+  return middleware
 }
 
-export default connectMiddleware
+const errorHandler = () => {
+  return handler
+}
+
+export {
+  errorMiddleware,
+  errorHandler,
+}
