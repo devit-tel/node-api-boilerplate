@@ -4,7 +4,7 @@ import timestamps from 'mongoose-timestamp'
 
 export const schemaDefinition = {
   username: { type: String, required: true, unique: true },
-  password: { type: String }
+  password: { type: String },
 }
 
 var Schema = new Mongoose.Schema(schemaDefinition)
