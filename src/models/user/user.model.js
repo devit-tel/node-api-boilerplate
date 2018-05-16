@@ -4,12 +4,11 @@ import timestamps from 'mongoose-timestamp'
 
 const schemaDefinition = {
   username: { type: String, required: true, unique: true },
-  password: { type: String }
+  password: { type: String },
 }
 
 var Schema = new Mongoose.Schema(schemaDefinition)
 Schema.plugin(timestamps)
 Schema.plugin(MongoosePaginate)
 
-const Model = Mongoose.model('User', Schema)
-export default Model
+Mongoose.model('User', Schema)

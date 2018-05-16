@@ -16,11 +16,9 @@ import {
   responseFormatter,
 } from './middlewares'
 
-(async () => {
-  try {
-    const logger = getLogger('app:bootstrap')
-    const app = new Koa()
-    logger('set a middleware to main app')
+const logger = getLogger('app:bootstrap')
+const app = new Koa()
+logger('set a middleware to main app')
 
     // Plug "system middlewares"
     app.use(bodyParser())
@@ -39,17 +37,18 @@ import {
       methodNotAllowed: () => new NotFoundError('The resquested uri does not match to any route tables', ErrorCode.URI_NOT_FOUND.CODE)
     }))
 
-    // // Connect to database
-    let dbClient = null
-    if (config.database.databaseURI !== undefined && config.database.databaseURI !== null) {
-      dbClient = await mongooseClient(config.database.databaseURI)
+// // Connect to database
+if (config.database.databaseURI) {
+  mongooseClient(config.database.databaseURI)
+    .then(dbClient => {
       logger(`Connected to ${dbClient.host}:${dbClient.port}/${dbClient.name}`)
-    }
+    })
+    .catch(err => {
+      console.error('Unable to start server!', err)
+      process.exit(1)
+    })
+}
 
-    const server = app.listen(config.system.port)
-    logger(`starting server on port ${config.system.port}`)
-    gracefulShutdown(server)
-  } catch (err) {
-    console.error('Unable to start server!', err)
-  }
-})()
+const server = app.listen(config.system.port)
+logger(`starting server on port ${config.system.port}`)
+gracefulShutdown(server)
