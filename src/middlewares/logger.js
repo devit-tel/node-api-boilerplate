@@ -1,6 +1,6 @@
 import { middleware } from '../libraries/logger/graylog'
-const connectMiddleware = (app) => {
-  app.use(middleware)
+const connectMiddleware = () => {
+  return middleware
 }
 
 export default connectMiddleware

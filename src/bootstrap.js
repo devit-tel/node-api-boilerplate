@@ -1,5 +1,8 @@
 import path from 'path'
 import Koa from 'koa'
+import bodyParser from 'koa-bodyparser'
+import compress from 'koa-compress'
+import cors from '@koa/cors'
 import mongooseClient from './libraries/database/client/mongoose'
 import { load } from '@spksoft/koa-decorator'
 import gracefulShutdown from 'http-graceful-shutdown'
@@ -7,12 +10,10 @@ import config from './config'
 import { getLogger } from './libraries/logger'
 import { NotFoundError, ErrorCode } from './libraries/error'
 import {
-  bodyParser,
-  compress,
-  cors,
   accessLogger,
   errorHandler,
-  responseFormatter
+  errorMiddleware,
+  responseFormatter,
 } from './middlewares'
 
 (async () => {
@@ -22,13 +23,13 @@ import {
     logger('set a middleware to main app')
 
     // Plug "system middlewares"
-    bodyParser(app)
-    compress(app)
-    cors(app)
-    accessLogger(app)
-    errorHandler(app)
-    responseFormatter(app)
-
+    app.use(bodyParser())
+    app.use(compress())
+    app.use(cors())
+    app.use(accessLogger())
+    app.use(errorMiddleware())
+    app.use(responseFormatter())
+    app.on('error', errorHandler())
     // load router
     const apiRouter = load(path.resolve(__dirname, 'controllers'), '.controller.js')
     app.use(apiRouter.routes())
