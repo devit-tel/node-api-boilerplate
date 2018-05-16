@@ -7,8 +7,10 @@ const schemaDefinition = {
   password: { type: String },
 }
 
-var Schema = new Mongoose.Schema(schemaDefinition)
+const Schema = new Mongoose.Schema(schemaDefinition)
 Schema.plugin(timestamps)
 Schema.plugin(MongoosePaginate)
 
-Mongoose.model('User', Schema)
+const Model = Mongoose.model('User', Schema)
+
+export default Model

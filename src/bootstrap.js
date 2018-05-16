@@ -20,22 +20,22 @@ const logger = getLogger('app:bootstrap')
 const app = new Koa()
 logger('set a middleware to main app')
 
-    // Plug "system middlewares"
-    app.use(bodyParser())
-    app.use(compress())
-    app.use(cors())
-    app.use(accessLogger())
-    app.use(errorMiddleware())
-    app.use(responseFormatter())
-    app.on('error', errorHandler())
-    // load router
-    const apiRouter = load(path.resolve(__dirname, 'controllers'), '.controller.js')
-    app.use(apiRouter.routes())
-    app.use(apiRouter.allowedMethods({
-      throw: true,
-      notImplemented: () => new NotFoundError('The resquested uri does not match to any route tables', ErrorCode.URI_NOT_FOUND.CODE),
-      methodNotAllowed: () => new NotFoundError('The resquested uri does not match to any route tables', ErrorCode.URI_NOT_FOUND.CODE)
-    }))
+// Plug "system middlewares"
+app.use(bodyParser())
+app.use(compress())
+app.use(cors())
+app.use(accessLogger())
+app.use(errorMiddleware())
+app.use(responseFormatter())
+app.on('error', errorHandler())
+// load router
+const apiRouter = load(path.resolve(__dirname, 'controllers'), '.controller.js')
+app.use(apiRouter.routes())
+app.use(apiRouter.allowedMethods({
+  throw: true,
+  notImplemented: () => new NotFoundError('The resquested uri does not match to any route tables', ErrorCode.URI_NOT_FOUND.CODE),
+  methodNotAllowed: () => new NotFoundError('The resquested uri does not match to any route tables', ErrorCode.URI_NOT_FOUND.CODE)
+}))
 
 // // Connect to database
 if (config.database.databaseURI) {
