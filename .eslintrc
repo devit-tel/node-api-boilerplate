@@ -1,16 +1,7 @@
 {
-  "parser"  : "babel-eslint",
-  "extends" : [
-    "standard",
-    "prettier/standard",
-    "prettier/flowtype"
-  ],
-  "plugins" : [
-    "babel",
-    "flowtype",
-    "prettier",
-    "promise"
-  ],
+  "parser": "babel-eslint",
+  "extends": ["standard", "prettier/standard", "prettier/flowtype"],
+  "plugins": ["babel", "flowtype", "prettier", "promise"],
   "globals": {
     "process": true,
     "describe": true,
@@ -23,7 +14,7 @@
   },
   "rules": {
     "indent": "off",
-    "comma-dangle": "off",
+    "comma-dangle": ["warn", "always-multiline"],
     "space-before-function-paren": "off"
   }
 }
