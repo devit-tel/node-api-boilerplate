@@ -11,8 +11,8 @@ const middleware = async (ctx, next) => {
     }
   }
 }
-const connectMiddleware = (app) => {
-  app.use(middleware)
+const connectMiddleware = () => {
+  return middleware
 }
 
 export default connectMiddleware

@@ -2,7 +2,7 @@ import Mongoose from 'mongoose'
 import MongoosePaginate from 'mongoose-paginate'
 import timestamps from 'mongoose-timestamp'
 
-export const schemaDefinition = {
+const schemaDefinition = {
   username: { type: String, required: true, unique: true },
   password: { type: String },
 }
