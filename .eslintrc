@@ -5,6 +5,7 @@
   "rules": {
     "indent": "off",
     "comma-dangle": ["warn", "always-multiline"],
+    "import/newline-after-import": ["error", { "count": 1 }],
     "space-before-function-paren": "off"
   }
 }
