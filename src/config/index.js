@@ -26,8 +26,22 @@ export default {
       secret: process.env.FIREBASE_SECRET,
     },
     conductor: {
-      baseURL: process.env.CONDUCTOR_BASEURL
-    }
+      baseURL: process.env.CONDUCTOR_BASEURL,
+    },
+  },
+  services: {
+    address: {
+      baseURL: process.env.ADDRESS_BASEURL,
+      timeout: 30000,
+      headers: {
+        ['x-authorization']: process.env.ADDRESS_HEADERS_AUTHORIZATION,
+      },
+    },
+  },
+  logger: {
+    enabled: !!process.env.LOGGER_ENABLED,
+    format: !!process.env.LOGGER_FORMAT,
+    name,
   },
   server: {
     host: process.env.KOA_HOST || '0.0.0.0',
