@@ -61,3 +61,15 @@ export class MethodNotAllowed extends Error {
     this.statusCode = 405
   }
 }
+
+export class NotAcceptable extends Error {
+  constructor(message: string, code = 'NOT_ACCEPTABLE') {
+    super(message)
+    Error.captureStackTrace(this, this.constructor)
+    this.isCustomError = true
+    this.name = this.constructor.name
+    this.data = data
+    this.code = code
+    this.statusCode = 406
+  }
+}
