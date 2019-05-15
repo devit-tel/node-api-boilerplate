@@ -7,3 +7,8 @@ global.Errors = {
   clientError,
   serverError,
 }
+
+export default {
+  clientError,
+  serverError,
+}

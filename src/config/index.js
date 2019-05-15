@@ -9,7 +9,11 @@ export default {
   },
   clients: {
     mongoDB: {
-      url: process.env.MONGODB_URL,
+      enabled: !!process.env.MONGODB_ENABLED,
+      uri: process.env.MONGODB_URL,
+      options: {
+        database: name,
+      },
     },
     redis: {
       host: process.env.REDIS_HOST,

@@ -5,10 +5,10 @@ import compress from 'koa-compress'
 import cors from '@koa/cors'
 import { load } from '@spksoft/koa-decorator'
 import gracefulShutdown from 'http-graceful-shutdown'
-// import mongooseClient from './libraries/database/mongoose'
+import mongooseConnect from './libraries/database/mongoose'
 import config from './config'
 import { createLogger } from './libraries/logger'
-// import { NotFoundError, ErrorCode } from './libraries/error'
+import errors from './errors'
 // import { accessLogger, errorHandler, errorMiddleware, responseFormatter } from './middlewares'
 
 const logger = createLogger({ namespace: 'app:bootstrap' })
@@ -29,31 +29,17 @@ app.use(apiRouter.routes())
 app.use(
   apiRouter.allowedMethods({
     throw: true,
-    // notImplemented: () =>
-    //   new NotFoundError(
-    //     'The resquested uri does not match to any route tables',
-    //     ErrorCode.URI_NOT_FOUND.CODE,
-    //   ),
-    // methodNotAllowed: () =>
-    //   new NotFoundError(
-    //     'The resquested uri does not match to any route tables',
-    //     ErrorCode.URI_NOT_FOUND.CODE,
-    //   ),
+    notImplemented: errors.serverError.notImplemented,
+    methodNotAllowed: errors.serverError.methodNotAllowed,
   }),
 )
 
-// // Connect to database
-// if (config.database.databaseURI) {
-//   mongooseClient(config.database.databaseURI)
-//     .then(dbClient => {
-//       logger.debug(`Connected to ${dbClient.host}:${dbClient.port}/${dbClient.name}`)
-//     })
-//     .catch(err => {
-//       console.error('Unable to start server!', err)
-//       process.exit(1)
-//     })
-// }
+if (config.clients.mongoDB.enabled) {
+  mongooseConnect(config.clients.mongoDB.uri, config.clients.mongoDB.options).catch(() => {
+    process.exit(1)
+  })
+}
 
-const server = app.listen(config.system.port)
-logger.debug(`starting server on port ${config.system.port}`)
+const server = app.listen(config.server.port, config.server.host)
+logger.debug(`starting server on ${config.server.host}:${config.server.port}`)
 gracefulShutdown(server)
