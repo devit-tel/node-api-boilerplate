@@ -15,7 +15,7 @@ export class BadRequest extends Error {
 }
 
 export class Unauthorized extends Error {
-  constructor(message, code = 'UNAUTHORIZED') {
+  constructor(message: string, code = 'UNAUTHORIZED') {
     super(message)
     Error.captureStackTrace(this, this.constructor)
     this.isCustomError = true
@@ -27,7 +27,7 @@ export class Unauthorized extends Error {
 }
 
 export class Forbidden extends Error {
-  constructor(message, code = 'FORBIDDEN') {
+  constructor(message: string, code = 'FORBIDDEN') {
     super(message)
     Error.captureStackTrace(this, this.constructor)
     this.isCustomError = true
@@ -39,7 +39,7 @@ export class Forbidden extends Error {
 }
 
 export class NotFound extends Error {
-  constructor(message, code = 'NOT_FOUND') {
+  constructor(message: string, code = 'NOT_FOUND') {
     super(message)
     Error.captureStackTrace(this, this.constructor)
     this.isCustomError = true
@@ -51,7 +51,7 @@ export class NotFound extends Error {
 }
 
 export class MethodNotAllowed extends Error {
-  constructor(message, code = 'METHOD_NOT_ALLOWED') {
+  constructor(message: string, code = 'METHOD_NOT_ALLOWED') {
     super(message)
     Error.captureStackTrace(this, this.constructor)
     this.isCustomError = true
