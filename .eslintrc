@@ -1,11 +1,19 @@
 {
   "parser": "babel-eslint",
-  "extends": ["standard", "prettier/standard", "prettier/flowtype"],
-  "plugins": ["babel", "flowtype", "prettier", "promise"],
+  "extends": ["airbnb-base", "prettier"],
+  "plugins": ["flowtype", "prettier"],
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
+  },
   "rules": {
-    "indent": "off",
+    "prettier/prettier": ["error"],
     "comma-dangle": ["warn", "always-multiline"],
     "import/newline-after-import": ["error", { "count": 1 }],
+    "import/prefer-default-export": "off",
+    "flowtype/define-flow-type": 1,
     "space-before-function-paren": "off",
     "arrow-parens": ["warn", "as-needed"]
   }
