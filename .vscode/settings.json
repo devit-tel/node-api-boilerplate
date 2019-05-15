@@ -2,5 +2,5 @@
   "editor.formatOnSave": true,
   "editor.formatOnSaveTimeout": 1000,
   "prettier.eslintIntegration": true,
-  "javascript.validate.enable": false
+  "javascript.validate.enable": true
 }

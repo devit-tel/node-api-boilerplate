@@ -1,2 +1,9 @@
-export clientError from './clientError'
-export serverError from './serverError'
+// Make sure import this file at the begining of project
+
+import * as clientError from './clientError'
+import * as serverError from './serverError'
+
+global.Errors = {
+  clientError,
+  serverError,
+}
