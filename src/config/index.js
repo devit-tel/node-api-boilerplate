@@ -37,10 +37,14 @@ export default {
         ['x-authorization']: process.env.ADDRESS_HEADERS_AUTHORIZATION,
       },
     },
+    google: {
+      key: process.env.GOOGLE_MAP_KEY,
+    },
   },
   logger: {
     enabled: !!process.env.LOGGER_ENABLED,
     format: !!process.env.LOGGER_FORMAT,
+    debug: !!process.env.LOGGER_DEBUG,
     name,
   },
   server: {
