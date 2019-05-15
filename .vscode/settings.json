@@ -3,5 +3,6 @@
   "editor.formatOnSaveTimeout": 1000,
   "prettier.eslintIntegration": true,
   "editor.tabSize": 2,
-  "files.trimTrailingWhitespace": true
+  "files.trimTrailingWhitespace": true,
+  "flow.useNPMPackagedFlow": true
 }

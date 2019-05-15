@@ -1,5 +1,8 @@
 [ignore]
-
+build/
+node_modules/
+.env
+yarn-error*
 [include]
 
 [libs]
