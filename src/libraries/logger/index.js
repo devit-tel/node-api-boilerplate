@@ -32,12 +32,7 @@ export const createLogger = overrideOptions => {
         {
           type: 'stream',
           stream: formatter,
-          level: bunyan.INFO,
-        },
-        {
-          type: 'stream',
-          stream: debug ? formatter : devNull(),
-          level: bunyan.TRACE,
+          level: debug ? bunyan.TRACE : bunyan.INFO,
         },
       ],
     }
@@ -48,12 +43,7 @@ export const createLogger = overrideOptions => {
         {
           type: 'stream',
           stream: process.stdout,
-          level: bunyan.INFO,
-        },
-        {
-          type: 'stream',
-          stream: debug ? process.stdout : devNull(),
-          level: bunyan.TRACE,
+          level: debug ? bunyan.TRACE : bunyan.INFO,
         },
       ],
     }
