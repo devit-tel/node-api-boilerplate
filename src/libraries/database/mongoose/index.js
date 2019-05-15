@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
-import { getLogger } from '../../logger'
+import { createLogger } from '../../logger'
 
-const logger = getLogger('app:database')
+const logger = createLogger('app:database')
 
 export default uri =>
   new Promise((resolve, reject) => {

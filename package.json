@@ -54,6 +54,7 @@
     "debug": "4.1.1",
     "dev-null": "^0.1.1",
     "dotenv": "8.0.0",
+    "eslint-config-airbnb-base": "^13.1.0",
     "http-graceful-shutdown": "2.2.3",
     "koa": "2.7.0",
     "koa-bodyparser": "4.2.1",

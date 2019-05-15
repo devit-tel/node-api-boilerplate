@@ -45,7 +45,6 @@ export default {
     enabled: !!process.env.LOGGER_ENABLED,
     format: !!process.env.LOGGER_FORMAT,
     debug: !!process.env.LOGGER_DEBUG,
-    name,
   },
   server: {
     host: process.env.KOA_HOST || '0.0.0.0',

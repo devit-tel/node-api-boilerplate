@@ -5,59 +5,65 @@ import config from '../../config'
 
 const formatter = bunyanFormat({ outputMode: 'short' })
 
-const { enabled, format, debug, ...loggerConfig } = config.logger
+const { enabled, format, debug } = config.logger
 
-let options = {
-  ...loggerConfig,
-  serializers: bunyan.stdSerializers,
+export const createLogger = overrideOptions => {
+  let options = {
+    serializers: bunyan.stdSerializers,
+    options,
+    ...config.system,
+    ...overrideOptions,
+  }
+
+  if (!enabled) {
+    options = {
+      ...options,
+      streams: [
+        {
+          type: 'stream',
+          stream: devNull,
+          level: bunyan.TRACE,
+        },
+      ],
+    }
+  } else if (format) {
+    options = {
+      ...options,
+      streams: [
+        {
+          type: 'stream',
+          stream: formatter,
+          level: bunyan.INFO,
+        },
+        {
+          type: 'stream',
+          stream: debug ? formatter : devNull,
+          level: bunyan.TRACE,
+        },
+      ],
+    }
+  } else {
+    options = {
+      ...options,
+      streams: [
+        {
+          type: 'stream',
+          stream: process.stdout,
+          level: bunyan.INFO,
+        },
+        {
+          type: 'stream',
+          stream: debug ? process.stdout : devNull,
+          level: bunyan.TRACE,
+        },
+      ],
+    }
+  }
+
+  return bunyan.createLogger(options)
 }
 
-if (!enabled) {
-  options = {
-    ...options,
-    streams: [
-      {
-        type: 'stream',
-        stream: devNull,
-        level: bunyan.TRACE,
-      },
-    ],
-  }
-} else if (format) {
-  options = {
-    ...options,
-    streams: [
-      {
-        type: 'stream',
-        stream: formatter,
-        level: bunyan.INFO,
-      },
-      {
-        type: 'stream',
-        stream: debug ? formatter : devNull,
-        level: bunyan.TRACE,
-      },
-    ],
-  }
-} else {
-  options = {
-    ...options,
-    streams: [
-      {
-        type: 'stream',
-        stream: process.stdout,
-        level: bunyan.INFO,
-      },
-      {
-        type: 'stream',
-        stream: debug ? process.stdout : devNull,
-        level: bunyan.TRACE,
-      },
-    ],
-  }
-}
-
-const logger = bunyan.createLogger(options)
+const logger = createLogger({ namespace: 'system' })
 
 global.logger = logger
 
