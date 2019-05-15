@@ -5,23 +5,22 @@ import config from '../../config'
 
 const formatter = bunyanFormat({ outputMode: 'short' })
 
-const { enabled, format, debug } = config.logger
+const { disabled, format, debug } = config.logger
 
 export const createLogger = overrideOptions => {
   let options = {
     serializers: bunyan.stdSerializers,
-    options,
     ...config.system,
     ...overrideOptions,
   }
 
-  if (!enabled) {
+  if (disabled) {
     options = {
       ...options,
       streams: [
         {
           type: 'stream',
-          stream: devNull,
+          stream: devNull(),
           level: bunyan.TRACE,
         },
       ],
@@ -37,7 +36,7 @@ export const createLogger = overrideOptions => {
         },
         {
           type: 'stream',
-          stream: debug ? formatter : devNull,
+          stream: debug ? formatter : devNull(),
           level: bunyan.TRACE,
         },
       ],
@@ -53,7 +52,7 @@ export const createLogger = overrideOptions => {
         },
         {
           type: 'stream',
-          stream: debug ? process.stdout : devNull,
+          stream: debug ? process.stdout : devNull(),
           level: bunyan.TRACE,
         },
       ],

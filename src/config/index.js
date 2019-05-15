@@ -34,7 +34,7 @@ export default {
       baseURL: process.env.ADDRESS_BASEURL,
       timeout: 30000,
       headers: {
-        ['x-authorization']: process.env.ADDRESS_HEADERS_AUTHORIZATION,
+        'x-authorization': process.env.ADDRESS_HEADERS_AUTHORIZATION,
       },
     },
     google: {
@@ -42,7 +42,7 @@ export default {
     },
   },
   logger: {
-    enabled: !!process.env.LOGGER_ENABLED,
+    disabled: !!process.env.LOGGER_DISABLED,
     format: !!process.env.LOGGER_FORMAT,
     debug: !!process.env.LOGGER_DEBUG,
   },

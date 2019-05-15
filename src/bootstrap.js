@@ -5,15 +5,15 @@ import compress from 'koa-compress'
 import cors from '@koa/cors'
 import { load } from '@spksoft/koa-decorator'
 import gracefulShutdown from 'http-graceful-shutdown'
-import mongooseClient from './libraries/database/mongoose'
+// import mongooseClient from './libraries/database/mongoose'
 import config from './config'
-import { getLogger } from './libraries/logger'
+import { createLogger } from './libraries/logger'
 // import { NotFoundError, ErrorCode } from './libraries/error'
 // import { accessLogger, errorHandler, errorMiddleware, responseFormatter } from './middlewares'
 
-const logger = getLogger('app:bootstrap')
+const logger = createLogger({ namespace: 'app:bootstrap' })
 const app = new Koa()
-logger('set a middleware to main app')
+logger.debug('set a middleware to main app')
 
 // Plug "system middlewares"
 app.use(bodyParser())
@@ -24,7 +24,7 @@ app.use(cors())
 // app.use(responseFormatter())
 // app.on('error', errorHandler())
 // load router
-const apiRouter = load(path.resolve(__dirname, 'controllers'), '.controller.js')
+const apiRouter = load(path.resolve(__dirname, 'controllers'), 'controller.js')
 app.use(apiRouter.routes())
 app.use(
   apiRouter.allowedMethods({
@@ -43,17 +43,17 @@ app.use(
 )
 
 // // Connect to database
-if (config.database.databaseURI) {
-  mongooseClient(config.database.databaseURI)
-    .then(dbClient => {
-      logger(`Connected to ${dbClient.host}:${dbClient.port}/${dbClient.name}`)
-    })
-    .catch(err => {
-      console.error('Unable to start server!', err)
-      process.exit(1)
-    })
-}
+// if (config.database.databaseURI) {
+//   mongooseClient(config.database.databaseURI)
+//     .then(dbClient => {
+//       logger.debug(`Connected to ${dbClient.host}:${dbClient.port}/${dbClient.name}`)
+//     })
+//     .catch(err => {
+//       console.error('Unable to start server!', err)
+//       process.exit(1)
+//     })
+// }
 
 const server = app.listen(config.system.port)
-logger(`starting server on port ${config.system.port}`)
+logger.debug(`starting server on port ${config.system.port}`)
 gracefulShutdown(server)
