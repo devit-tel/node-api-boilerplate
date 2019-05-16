@@ -48,6 +48,11 @@ export default {
     disabled: !!process.env.LOGGER_DISABLED,
     format: !!process.env.LOGGER_FORMAT,
     debug: !!process.env.LOGGER_DEBUG,
+    options: {
+      project: name,
+      v: version,
+      environment: process.env.NODE_ENV,
+    },
   },
   server: {
     host: process.env.KOA_HOST || '0.0.0.0',

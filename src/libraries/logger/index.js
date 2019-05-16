@@ -10,7 +10,8 @@ const { disabled, format, debug } = config.logger
 export const createLogger = overrideOptions => {
   let options = {
     serializers: bunyan.stdSerializers,
-    ...config.system,
+    name: 'default',
+    ...config.logger.options,
     ...overrideOptions,
   }
 
