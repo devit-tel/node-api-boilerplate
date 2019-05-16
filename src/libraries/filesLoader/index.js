@@ -15,7 +15,7 @@ export const deepScanFiles = (path, regex) =>
       })
   })
 
-export default async (path, regex) => {
+export default async (path, regex = /.*/g) => {
   const files = await deepScanFiles(path, regex)
   for (const file of files) {
     require(file)
