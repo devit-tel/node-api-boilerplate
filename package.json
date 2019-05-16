@@ -50,7 +50,7 @@
     "@koa/cors": "3.0.0",
     "@spksoft/koa-decorator": "1.2.2",
     "babel-polyfill": "6.26.0",
-    "bluebird": "^3.5.4",
+    "bluebird": "3.5.4",
     "bunyan": "1.8.12",
     "bunyan-format": "0.2.1",
     "dev-null": "0.1.1",
@@ -61,8 +61,10 @@
     "koa-router": "7.4.0",
     "mongoose": "5.5.8",
     "ramda": "0.26.1",
-    "redis": "^2.8.0",
+    "rascal": "4.4.0",
+    "redis": "2.8.0",
     "sendit-mongoose-repository": "1.1.9",
-    "uuid": "^3.3.2"
+    "uuid": "3.3.2",
+    "walker": "1.0.7"
   }
 }

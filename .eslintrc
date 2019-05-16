@@ -16,6 +16,7 @@
     "flowtype/define-flow-type": 1,
     "space-before-function-paren": "off",
     "arrow-parens": ["warn", "as-needed"],
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "no-restricted-syntax": "off"
   }
 }
