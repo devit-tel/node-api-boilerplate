@@ -22,3 +22,14 @@ export class NotImplemented {
     this.statusCode = 501
   }
 }
+
+export class ServiceUnavailable {
+  constructor(message, code = 'SERVICE_UNAVAILABLE') {
+    Error.captureStackTrace(this, this.constructor)
+    this.message = message
+    this.isCustomError = true
+    this.name = this.constructor.name
+    this.code = code
+    this.statusCode = 501
+  }
+}

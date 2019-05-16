@@ -1,12 +1,11 @@
 import { HttpMethod, route } from '@spksoft/koa-decorator'
 import mongoose from 'mongoose'
+import getHealth from '../../../domains/system/health'
 
 @route('/v1/system')
 export default class SystemController {
   @route('/health', HttpMethod.GET)
-  async health(ctx) {
-    ctx.body = {
-      databaseStatus: mongoose.connection.readyState,
-    }
+  health(ctx) {
+    ctx.body = getHealth()
   }
 }

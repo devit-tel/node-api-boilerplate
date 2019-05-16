@@ -7,21 +7,19 @@ export const APP_STATES = {
 export const APP_STATES_LIST = Object.keys(APP_STATES)
 
 export class AppStatus {
-  state = APP_STATES.INITIATING
-
-  constructor(state) {
-    this.state = state
+  constructor(state = APP_STATES.INITIATING) {
+    this.appState = state
   }
 
   set state(state) {
     if (APP_STATES_LIST.includes(state)) {
-      this.state = state
+      this.appState = state
     }
-    return this.state
+    return this.appState
   }
 
   get state() {
-    return this.state
+    return this.appState
   }
 }
 
