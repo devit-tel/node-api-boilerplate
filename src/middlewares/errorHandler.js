@@ -19,12 +19,13 @@ export default async (ctx, next) => {
         stack: config.server.stack ? stack : undefined,
         debug: config.server.debug
           ? {
-              ...R.pick(['method', 'url', 'headers', 'body'], ctx),
+              ...R.pick(['method', 'url', 'headers', 'body'], ctx.request),
               query: ctx.query,
               params: ctx.params,
             }
           : undefined,
       },
+      requestId: ctx.requestId,
     }
   }
 }
