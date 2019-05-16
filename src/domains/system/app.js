@@ -1,10 +1,4 @@
-export const APP_STATES = {
-  INITIATING: 'INITIATING',
-  READY: 'READY',
-  SHUTING_DOWN: 'SHUTING_DOWN',
-}
-
-export const APP_STATES_LIST = Object.keys(APP_STATES)
+import { APP_STATES, APP_STATES_LIST } from '../../constants/app'
 
 export class AppStatus {
   constructor(state = APP_STATES.INITIATING) {
