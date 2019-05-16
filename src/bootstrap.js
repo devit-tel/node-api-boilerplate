@@ -9,21 +9,19 @@ import config from './config'
 import errors from './errors'
 import { createLogger } from './libraries/logger'
 import errorHandler from './middlewares/errorHandler'
-// import { accessLogger, errorHandler, errorMiddleware, responseFormatter } from './middlewares'
+import accessLogger from './middlewares/accessLogger'
 
 const logger = createLogger('app:bootstrap')
 const app = new Koa()
-logger.debug('set a middleware to main app')
 
-// Plug "system middlewares"
+logger.debug('Setting up middlewares')
 app.use(bodyParser())
 app.use(compress())
 app.use(cors())
-// app.use(accessLogger())
+app.use(accessLogger)
 app.use(errorHandler)
-// app.use(responseFormatter())
-// app.on('error', errorHandler())
-// load router
+
+logger.debug('Loading routers')
 const apiRouter = load(path.resolve(__dirname, 'controllers'), 'controller.js')
 app.use(apiRouter.routes())
 app.use(
@@ -34,6 +32,8 @@ app.use(
   }),
 )
 
-const server = app.listen(config.server.port, config.server.host)
-logger.debug(`starting server on ${config.server.host}:${config.server.port}`)
+const server = app.listen(config.server.port, config.server.host, undefined, () => {
+  logger.debug(`Server started at ${config.server.host}:${config.server.port}`)
+})
+
 gracefulShutdown(server)

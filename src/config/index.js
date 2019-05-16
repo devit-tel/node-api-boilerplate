@@ -59,5 +59,6 @@ export default {
     port: process.env.KOA_PORT || '3000',
     stack: !!process.env.KOA_STACK,
     debug: !!process.env.KOA_DEBUG,
+    accessLogs: !!process.env.KOA_ACCESS_LOGS,
   },
 }
