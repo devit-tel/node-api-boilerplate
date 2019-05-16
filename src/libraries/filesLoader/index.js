@@ -1,6 +1,6 @@
 import walker from 'walker'
 
-export const deepScanFiles = (path, regex) =>
+export const deepScanFiles = (path, regex = /.*/g) =>
   new Promise((resolve, reject) => {
     const files = []
     walker(path)
