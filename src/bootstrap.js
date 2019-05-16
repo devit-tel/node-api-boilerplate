@@ -11,7 +11,7 @@ import { createLogger } from './libraries/logger'
 import errorHandler from './middlewares/errorHandler'
 // import { accessLogger, errorHandler, errorMiddleware, responseFormatter } from './middlewares'
 
-const logger = createLogger({ name: 'app:bootstrap' })
+const logger = createLogger('app:bootstrap')
 const app = new Koa()
 logger.debug('set a middleware to main app')
 

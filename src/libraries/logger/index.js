@@ -7,12 +7,11 @@ const formatter = bunyanFormat({ outputMode: 'short' })
 
 const { disabled, format, debug } = config.logger
 
-export const createLogger = overrideOptions => {
+export const createLogger = name => {
   let options = {
     serializers: bunyan.stdSerializers,
-    name: 'default',
+    name: name || 'default',
     ...config.logger.options,
-    ...overrideOptions,
   }
 
   if (disabled) {
@@ -53,7 +52,7 @@ export const createLogger = overrideOptions => {
   return bunyan.createLogger(options)
 }
 
-const logger = createLogger({ namespace: 'system' })
+const logger = createLogger('app:default')
 
 global.logger = logger
 
