@@ -1,12 +1,12 @@
 import { HttpMethod, route } from '@spksoft/koa-decorator'
 import mongoose from 'mongoose'
-import { BadRequest } from '../../../errors/clientError'
+import Errors from '../../../errors'
 
 @route('/v1/system')
 export default class SystemController {
   @route('/health', HttpMethod.GET)
   async health(ctx) {
-    throw new BadRequest('user not found')
+    throw new Errors.BadRequest('user not found')
     ctx.body = {
       databaseStatus: mongoose.connection.readyState,
     }

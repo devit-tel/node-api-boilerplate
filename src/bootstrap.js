@@ -27,8 +27,8 @@ app.use(apiRouter.routes())
 app.use(
   apiRouter.allowedMethods({
     throw: true,
-    notImplemented: errors.serverError.notImplemented,
-    methodNotAllowed: errors.serverError.methodNotAllowed,
+    notImplemented: errors.notImplemented,
+    methodNotAllowed: errors.methodNotAllowed,
   }),
 )
 

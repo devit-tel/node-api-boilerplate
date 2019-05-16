@@ -4,11 +4,11 @@ import * as clientError from './clientError'
 import * as serverError from './serverError'
 
 global.Errors = {
-  clientError,
-  serverError,
+  ...clientError,
+  ...serverError,
 }
 
 export default {
-  clientError,
-  serverError,
+  ...clientError,
+  ...serverError,
 }
