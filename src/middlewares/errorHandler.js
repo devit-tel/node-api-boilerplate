@@ -1,3 +1,4 @@
+import R from 'ramda'
 import config from '../config'
 
 export default async (ctx, next) => {
@@ -16,6 +17,13 @@ export default async (ctx, next) => {
         code,
         message,
         stack: config.server.stack ? stack : undefined,
+        debug: config.server.debug
+          ? {
+              ...R.pick(['method', 'url', 'headers', 'body'], ctx),
+              query: ctx.query,
+              params: ctx.params,
+            }
+          : undefined,
       },
     }
   }
