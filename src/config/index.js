@@ -52,5 +52,6 @@ export default {
   server: {
     host: process.env.KOA_HOST || '0.0.0.0',
     port: process.env.KOA_PORT || '3000',
+    stack: !!process.env.KOA_STACK,
   },
 }

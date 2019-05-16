@@ -6,11 +6,12 @@ import cors from '@koa/cors'
 import { load } from '@spksoft/koa-decorator'
 import gracefulShutdown from 'http-graceful-shutdown'
 import config from './config'
-import { createLogger } from './libraries/logger'
 import errors from './errors'
+import { createLogger } from './libraries/logger'
+import errorHandler from './middlewares/errorHandler'
 // import { accessLogger, errorHandler, errorMiddleware, responseFormatter } from './middlewares'
 
-const logger = createLogger({ namespace: 'app:bootstrap' })
+const logger = createLogger({ name: 'app:bootstrap' })
 const app = new Koa()
 logger.debug('set a middleware to main app')
 
@@ -19,7 +20,7 @@ app.use(bodyParser())
 app.use(compress())
 app.use(cors())
 // app.use(accessLogger())
-// app.use(errorMiddleware())
+app.use(errorHandler)
 // app.use(responseFormatter())
 // app.on('error', errorHandler())
 // load router
