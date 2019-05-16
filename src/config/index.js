@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import { name, version } from '../../package.json'
 
 export default {
