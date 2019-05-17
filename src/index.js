@@ -1,5 +1,6 @@
 import 'babel-polyfill'
 import './errors'
-import './libraries/mongoose'
 import './libraries/logger'
+import './libraries/mongoose'
+import './libraries/redis'
 import './bootstrap'
