@@ -1,6 +1,9 @@
 import uuid from 'uuid/v4'
 import { name, version } from '../../package.json'
 
+const replaceVariable = (env, matcher, replacer) =>
+  env ? env.replace(matcher, replacer) : undefined
+
 export default {
   system: {
     name,
@@ -10,7 +13,7 @@ export default {
   clients: {
     mongoDB: {
       enabled: !!process.env.MONGODB_ENABLED,
-      uri: process.env.MONGODB_URL,
+      uri: replaceVariable(process.env.MONGODB_URL, /\${DATABSE_NAME}/g, name),
       options: {
         database: name,
       },
@@ -19,10 +22,12 @@ export default {
       host: process.env.REDIS_HOST,
     },
     elasticSearch: {
-      host: process.env.ES_HOST,
+      host: process.env.ELASTICSEARCH_HOST,
+      httpAuth: process.env.ELASTICSEARCH_AUTH,
+      apiVersion: process.env.ELASTICSEARCH_API_VERSION || '6.6',
     },
     rabbitMQ: {
-      url: process.env.RABBITMQ_URL,
+      url: replaceVariable(process.env.RABBITMQ_URL, /\${VHOST}/g, process.env.NODE_ENV),
     },
     firebase: {
       url: process.env.FIREBASE_URL,

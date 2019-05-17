@@ -17,6 +17,7 @@
     "space-before-function-paren": "off",
     "arrow-parens": ["warn", "as-needed"],
     "class-methods-use-this": "off",
-    "no-restricted-syntax": "off"
+    "no-restricted-syntax": "off",
+    "no-template-curly-in-string": "off"
   }
 }
