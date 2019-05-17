@@ -1,3 +1,5 @@
+// This is an example file, please remove
+
 import redis from 'redis'
 import config from '../../../../config'
 
