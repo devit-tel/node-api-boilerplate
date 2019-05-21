@@ -1,10 +1,13 @@
 export const DEFAULT_QUEUE_OPTIONS = {
-  durable: true,
-  exclusive: false,
-  autoCreated: true,
+  assert: true,
+  options: {
+    durable: true,
+  },
 }
 
 export const DEFAULT_EXCHANGE_OPTIONS = {
-  durable: true,
-  autoCreated: true,
+  assert: true,
+  options: {
+    durable: true,
+  },
 }

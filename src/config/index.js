@@ -1,13 +1,8 @@
 import uuid from 'uuid/v4'
-import { DEFAULT_QUEUE_OPTIONS } from '../constants/rascal'
+import { replaceVariable, splitVariable, enrichRascalCofig } from '../utils/config'
 import { name, version } from '../../package.json'
 
-const replaceVariable = (variable, matcher, replacer) =>
-  variable ? variable.replace(matcher, replacer) : undefined
-
-const splitVariable = (variable, splitBy) => (variable ? variable.split(splitBy) : undefined)
-
-export default {
+const config = {
   system: {
     name,
     version,
@@ -36,18 +31,27 @@ export default {
     },
     conductor: {
       baseURL: process.env.CONDUCTOR_BASEURL,
-      queues: {
-        [`${name}:test-queue`]: { options: DEFAULT_QUEUE_OPTIONS },
-        [`${name}:test-queue:x-dead-letter`]: { options: DEFAULT_QUEUE_OPTIONS },
-      },
     },
     rascal: {
+      enabled: process.env.RASCAL_ENABLED,
       vhosts: {
         [`/${process.env.NODE_ENV}`]: {
           connections: splitVariable(
-            replaceVariable(process.env.AMQP_URLS, /\${VHOST}/g, process.env.NODE_ENV),
+            replaceVariable(process.env.AMQP_URLS, /\${VHOST}/g, `/${process.env.NODE_ENV}`),
             ',',
           ),
+          ...enrichRascalCofig({
+            subscriptions: {
+              demo: {}, // overide binding options
+            },
+            publications: {
+              // A publication name, you can named it what ever you want, in this case is ${serviceName}.${routingKey}
+              'node-api-boilerplate.demo': {
+                exchange: 'node-api-boilerplate', // The service name that you want to talk to
+                routingKey: 'demo', // Their route name
+              },
+            },
+          }),
         },
       },
     },
@@ -84,3 +88,7 @@ export default {
     namespace: process.env.KOA_NAMESPACE || uuid(),
   },
 }
+
+console.dir(config, { depth: 10 })
+
+export default config
