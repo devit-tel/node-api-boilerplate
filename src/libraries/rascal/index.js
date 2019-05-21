@@ -12,6 +12,15 @@ const SUBSCRIBERS_PATH = join(__dirname, './subscribers')
 
 let broker
 
+export const reponderMaker = (ackOrNack, subscriptionsName) => ({
+  ack: ackOrNack,
+  nack: content =>
+    ackOrNack(content, {
+      strategy: 'forward',
+      publication: `${config.system.name}.${subscriptionsName}.error`,
+    }),
+})
+
 export const initHandler = (subscriptionsName, handler) => {
   logger.info(`loading subscriber: "${subscriptionsName}"`)
   broker
@@ -20,18 +29,19 @@ export const initHandler = (subscriptionsName, handler) => {
         logger.error(error)
         process.exit(EXIT_CODES.RASCAL_ERROR)
       }
+
       subscription
         .on('message', (message, content, ackOrNack) => {
-          handler(message, ackOrNack, broker)
+          handler(content, ackOrNack, broker)
         })
-        .on('invalid_content', (err, message, ackOrNack) => {
-          ackOrNack(err, {
+        .on('invalid_content', (subscriptionError, message, ackOrNack) => {
+          ackOrNack(subscriptionError, {
             strategy: 'forward',
             publication: `${config.system.name}.${subscriptionsName}.error`,
           })
         })
-        .on('redeliveries_exceeded', (err, message, ackOrNack) => {
-          ackOrNack(err, {
+        .on('redeliveries_exceeded', (subscriptionError, message, ackOrNack) => {
+          ackOrNack(subscriptionError, {
             strategy: 'forward',
             publication: `${config.system.name}.${subscriptionsName}.error`,
           })
@@ -55,6 +65,13 @@ if (config.clients.rascal.enabled) {
           initHandler(SUBSCRIPTIONS_NAME, handler)
         }
       }
+
+      setTimeout(() => {
+        broker.publish('node-api-boilerplate.demo', 'eiei', (err, publication) => {
+          if (err) throw err
+          publication.on('error', console.error)
+        })
+      }, 1000)
     }
   })
 }

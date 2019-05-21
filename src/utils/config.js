@@ -1,5 +1,9 @@
 import R from 'ramda'
-import { DEFAULT_QUEUE_OPTIONS, DEFAULT_EXCHANGE_OPTIONS } from '../constants/rascal'
+import {
+  DEFAULT_QUEUE_OPTIONS,
+  DEFAULT_EXCHANGE_OPTIONS,
+  DEFAULT_QUEUE_ERROR_OPTIONS,
+} from '../constants/rascal'
 import { name } from '../../package.json'
 
 const reduceIndex = (reducer, initValue) =>
@@ -17,6 +21,7 @@ const getQueuesConfig = reduceIndex(
   (result, [route]) => ({
     ...result,
     [`${name}.${route}`]: DEFAULT_QUEUE_OPTIONS,
+    [`${name}.${route}.error`]: DEFAULT_QUEUE_ERROR_OPTIONS,
   }),
   {},
 )
