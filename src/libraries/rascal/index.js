@@ -12,6 +12,8 @@ const SUBSCRIBERS_PATH = join(__dirname, './subscribers')
 
 let broker
 
+export const getBroker = () => broker
+
 export const reponderMaker = (ackOrNack, subscriptionsName) => ({
   ack: ackOrNack,
   nack: content =>
@@ -20,6 +22,14 @@ export const reponderMaker = (ackOrNack, subscriptionsName) => ({
       publication: `${config.system.name}.${subscriptionsName}.error`,
     }),
 })
+
+export const publish = (publication, content) =>
+  new Promise((resolve, reject) => {
+    broker.publish(publication, content, error => {
+      if (error) return reject(error)
+      return resolve()
+    })
+  })
 
 export const initHandler = (subscriptionsName, handler) => {
   logger.info(`loading subscriber: "${subscriptionsName}"`)
@@ -66,11 +76,9 @@ if (config.clients.rascal.enabled) {
         }
       }
 
+      // This is example to simulate publish event please remove
       setTimeout(() => {
-        broker.publish('node-api-boilerplate.demo', 'eiei', (err, publication) => {
-          if (err) throw err
-          publication.on('error', console.error)
-        })
+        publish(`${config.system.name}.demo`, 'hello world')
       }, 1000)
     }
   })
