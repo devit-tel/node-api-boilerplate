@@ -43,6 +43,7 @@ const config = {
           ...enrichRascalCofig({
             subscriptions: {
               demo: {}, // overide binding options
+              anotherDemo: {},
             },
             publications: {
               // A publication name, you can named it what ever you want, in this case is ${serviceName}.${routingKey}
@@ -89,6 +90,6 @@ const config = {
   },
 }
 
-console.dir(config, { depth: 10 })
+// console.dir(config, { depth: 10 })
 
 export default config
