@@ -7,10 +7,10 @@ import filesLoader from '../filesLoader'
 
 const SUBSCRIBERS_PATH = join(__dirname, './subscribers')
 
-const redisClient = promisifyAll(redis.createClient(config.clients.redis))
+const redisPromise = promisifyAll(redis)
 
 if (existsSync(SUBSCRIBERS_PATH)) {
   filesLoader(SUBSCRIBERS_PATH, /.*subscriber\.js/is)
 }
 
-export default redisClient
+export default redisPromise.createClient(config.clients.redis)

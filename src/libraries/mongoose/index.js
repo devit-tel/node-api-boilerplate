@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import { createLogger } from '../logger'
 import config from '../../config'
+import { EXIT_CODES } from '../../constants/app'
 
 const logger = createLogger('app:database')
 
@@ -27,7 +28,7 @@ const mongooseConnector = (uri, options) =>
 
 if (config.clients.mongoDB.enabled) {
   mongooseConnector(config.clients.mongoDB, config.clients.mongoDB.options).catch(() => {
-    process.exit(1)
+    process.exit(EXIT_CODES.MONGOOSE_ERROR)
   })
 }
 

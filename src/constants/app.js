@@ -5,3 +5,9 @@ export const APP_STATES = {
 }
 
 export const APP_STATES_LIST = Object.keys(APP_STATES)
+
+export const EXIT_CODES = {
+  MONGOOSE_ERROR: 100,
+  RASCAL_ERROR: 101,
+  REDIS_ERROR: 102,
+}
