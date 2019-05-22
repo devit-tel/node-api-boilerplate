@@ -9,8 +9,12 @@ const SUBSCRIBERS_PATH = join(__dirname, './subscribers')
 
 const redisPromise = promisifyAll(redis)
 
-if (existsSync(SUBSCRIBERS_PATH)) {
-  filesLoader(SUBSCRIBERS_PATH, /.*subscriber\.js/is)
+const { enabled, ...redisConfig } = config.clients.redis
+
+if (enabled) {
+  if (existsSync(SUBSCRIBERS_PATH)) {
+    filesLoader(SUBSCRIBERS_PATH, /.*subscriber\.js/is)
+  }
 }
 
-export default redisPromise.createClient(config.clients.redis)
+export default redisPromise.createClient(redisConfig)
