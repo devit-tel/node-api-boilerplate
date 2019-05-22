@@ -17,4 +17,4 @@ if (enabled) {
   }
 }
 
-export default redisPromise.createClient(redisConfig)
+export default (enabled ? redisPromise.createClient(redisConfig) : null)

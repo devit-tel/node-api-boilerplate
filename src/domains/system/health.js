@@ -1,4 +1,5 @@
-import appStat, { APP_STATES } from './app'
+import appStat from './app'
+import { APP_STATES } from '../../constants/app'
 import Errors from '../../errors'
 
 export default () => {
