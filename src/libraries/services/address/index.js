@@ -9,8 +9,8 @@ export const axiosClient = axios.create(config.clients.services.address)
 
 // A wraper that make life abit more easier
 export const client = async ({ url = '/', query, ...options }) =>
-  R.prop(
-    'data',
+  R.path(
+    ['data', 'data'],
     await axiosClient({ url: query ? `${url}?${qs.stringify(query)}` : url, ...options }),
   )
 
@@ -29,7 +29,7 @@ export const getGeography = (geographyId, overideOptions = {}) =>
     ...overideOptions,
   })
 
-export const listGeography = ({ search = '', limit = 10, page = 1 }, overideOptions = {}) =>
+export const listGeography = ({ search = '', limit = 10, page = 1 } = {}, overideOptions = {}) =>
   client({
     method: 'GET',
     url: '/v1/geographies',
@@ -67,7 +67,10 @@ export const getGeographyType = (geographyTypeId, overideOptions = {}) =>
     ...overideOptions,
   })
 
-export const listGeographyType = ({ search = '', limit = 10, page = 1 }, overideOptions = {}) =>
+export const listGeographyType = (
+  { search = '', limit = 10, page = 1 } = {},
+  overideOptions = {},
+) =>
   client({
     method: 'GET',
     url: '/v1/geographytypes',
@@ -102,7 +105,7 @@ export const getGeoCoding = (address = '', overideOptions = {}) =>
     ...overideOptions,
   })
 
-export const getReverseGeoCoding = ({ latitude = 0, longitude = 0 }, overideOptions = {}) =>
+export const getReverseGeoCoding = ({ latitude = 0, longitude = 0 } = {}, overideOptions = {}) =>
   client({
     method: 'GET',
     url: `/v1/reversegeocoding`,
@@ -113,7 +116,7 @@ export const getReverseGeoCoding = ({ latitude = 0, longitude = 0 }, overideOpti
   })
 
 export const listPlace = (
-  { input = '', sessiontoken = uuid(), engines = ['GOOGLE'] },
+  { input = '', sessiontoken = uuid(), engines = ['GOOGLE'] } = {},
   overideOptions = {},
 ) =>
   client({
@@ -128,7 +131,7 @@ export const listPlace = (
   })
 
 export const getPlace = (
-  { refId = '', sessiontoken = uuid(), type = 'GOOGLE' },
+  { refId = '', sessiontoken = uuid(), type = 'GOOGLE' } = {},
   overideOptions = {},
 ) =>
   client({
@@ -159,7 +162,7 @@ export const getPlace = (
 //   }
 // ]
 export const getDistanceByDriverLocations = (
-  { locations = [], engine = 'HERE' },
+  { locations = [], engine = 'HERE' } = {},
   overideOptions = {},
 ) =>
   client({
@@ -171,7 +174,7 @@ export const getDistanceByDriverLocations = (
   })
 
 // wayPoints [{"latitude":13.6859746,"longitude":100.6088129},{"latitude":13.686136,"longitude":100.5409611}]
-export const getDirection = ({ wayPoints = [], engine = 'HERE' }, overideOptions = {}) =>
+export const getDirection = ({ wayPoints = [], engine = 'HERE' } = {}, overideOptions = {}) =>
   client({
     method: 'GET',
     url: `/v1/direction`,
@@ -180,7 +183,7 @@ export const getDirection = ({ wayPoints = [], engine = 'HERE' }, overideOptions
   })
 
 export const getHeatmap = (
-  { feature, minuend, subtrahend, gridSize, breakPoints, countRadius },
+  { feature, minuend, subtrahend, gridSize, breakPoints, countRadius } = {},
   overideOptions = {},
 ) =>
   client({
