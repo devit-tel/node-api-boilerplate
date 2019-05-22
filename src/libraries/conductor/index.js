@@ -6,7 +6,7 @@ import filesLoader from '../filesLoader'
 
 const SUBSCRIBERS_PATH = join(__dirname, './workers')
 
-const { enabled, ...conductorConfig } = config.clients
+const { enabled, ...conductorConfig } = config.clients.conductor
 
 const conductorClient = new ConductorClient(conductorConfig)
 

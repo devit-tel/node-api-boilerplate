@@ -31,6 +31,7 @@ const config = {
       secret: process.env.FIREBASE_SECRET,
     },
     conductor: {
+      enabled: process.env.CONDUCTOR_ENABLED,
       baseURL: process.env.CONDUCTOR_BASEURL,
       autoAck: true,
       pollingIntervals: 100,
