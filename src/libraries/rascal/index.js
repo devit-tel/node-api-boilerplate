@@ -56,9 +56,9 @@ export const initHandler = (subscriptionsName, handler) => {
             publication: `${config.system.name}.${subscriptionsName}.error`,
           })
         })
-        .on('error', logger.error)
+        .on('error', subscriptionError => logger.error(subscriptionError))
     })
-    .on('error', logger.error)
+    .on('error', brokerError => logger.error(brokerError))
 }
 
 if (config.clients.rascal.enabled) {
