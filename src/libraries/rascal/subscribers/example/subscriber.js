@@ -1,7 +1,8 @@
 // This is an example file, please remove
 export const SUBSCRIPTIONS_NAME = 'demo'
 
-export const handler = (message, ackOrNack) => {
+export const handler = (message, respond) => {
   console.log(message)
-  ackOrNack()
+  // respond.nack(new Error('Nope'))
+  respond.ack()
 }

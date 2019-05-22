@@ -41,11 +41,10 @@ const getPublicationsConfig = ({ subscriptions, publications }) => ({
   ...reduceIndex(
     (result, [route]) => ({
       ...result,
-      [`${route}.error`]: { queue: `${route}.error`, autoCreated: true }, // For error
+      [`${name}.${route}.error`]: { queue: `${name}.${route}.error`, autoCreated: true }, // For error
     }),
     {},
-    subscriptions,
-  ),
+  )(subscriptions),
 })
 
 const getBindingsConfig = reduceIndex(

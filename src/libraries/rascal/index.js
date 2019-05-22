@@ -42,7 +42,7 @@ export const initHandler = (subscriptionsName, handler) => {
 
       subscription
         .on('message', (message, content, ackOrNack) => {
-          handler(content, ackOrNack, broker)
+          handler(content, reponderMaker(ackOrNack, subscriptionsName), broker)
         })
         .on('invalid_content', (subscriptionError, message, ackOrNack) => {
           ackOrNack(subscriptionError, {
