@@ -32,6 +32,8 @@ const config = {
     },
     conductor: {
       baseURL: process.env.CONDUCTOR_BASEURL,
+      autoAck: true,
+      pollingIntervals: 100,
     },
     rascal: {
       enabled: process.env.RASCAL_ENABLED,
