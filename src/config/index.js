@@ -56,6 +56,15 @@ const config = {
         },
       },
     },
+    services: {
+      address: {
+        baseURL: process.env.ADDRESS_BASE_URL,
+        headers: {
+          Authorities: process.env.ADDRESS_AUTHORITIES || '{}',
+        },
+        timeout: 10000,
+      },
+    },
   },
   services: {
     address: {
