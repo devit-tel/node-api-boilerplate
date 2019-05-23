@@ -27,7 +27,7 @@ export const schemaDefinition = {
   },
 }
 
-export const { Repository, Schema, Model } = repositoryBuilder('Sample', schemaDefinition, {
+export const { Repository, Schema, Model } = repositoryBuilder('Example', schemaDefinition, {
   indexs: [
     {
       fields: { code: 1, customerId: 1 },
