@@ -11,7 +11,7 @@
     "clean": "rimraf -rf build",
     "build": "npm run clean && babel -d ./build ./src -s",
     "build:docker": "docker build -t $npm_package_name:local ./",
-    "test": "jest --config ./jest.config.json",
+    "test": "jest --config ./jest.config.json ./src",
     "lint": "eslint . --fix",
     "reinstall": "rimraf -rf node_modules && npm install"
   },

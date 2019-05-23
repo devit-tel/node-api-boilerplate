@@ -10,7 +10,7 @@ export const jsonTryParse = (data, defaultValue = {}) => {
 
 export const jsonTryStringify = (data, defaultValue = '{}') => {
   try {
-    return R.is(Object) ? JSON.stringify(data) : data
+    return R.is(Object, data) ? JSON.stringify(data) : defaultValue
   } catch (error) {
     return defaultValue
   }
