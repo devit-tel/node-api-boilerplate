@@ -19,5 +19,9 @@
     "class-methods-use-this": "off",
     "no-restricted-syntax": "off",
     "no-template-curly-in-string": "off"
+  },
+  "env": {
+    "node": true,
+    "jest": true
   }
 }

@@ -1,0 +1,5 @@
+{
+  "automock": false,
+  "testEnvironment": "node",
+  "verbose": true
+}
