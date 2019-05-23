@@ -3,8 +3,8 @@ import {
   DEFAULT_QUEUE_OPTIONS,
   DEFAULT_EXCHANGE_OPTIONS,
   DEFAULT_QUEUE_ERROR_OPTIONS,
-} from '../constants/rascal'
-import { name } from '../../package.json'
+} from '../../constants/rascal'
+import { name } from '../../../package.json'
 
 const reduceIndex = (reducer, initValue) =>
   R.compose(
