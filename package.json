@@ -8,12 +8,12 @@
     "start": "npm run build && node build/index.js",
     "start:watch": "nodemon src/index.js --exec \"node -r 'dotenv/config' -r 'babel-register'\"",
     "start:docker": "npm run build:docker --no-cache && docker run -p 3000:3000 $npm_package_name:local",
-    "clean": "rm -rf build",
+    "clean": "rimraf -rf build",
     "build": "npm run clean && babel -d ./build ./src -s",
     "build:docker": "docker build -t $npm_package_name:local ./",
     "test": "jest --config ./jest.config.json",
     "lint": "eslint . --fix",
-    "reinstall": "rm -rf node_modules && npm install"
+    "reinstall": "rimraf -rf node_modules && npm install"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
@@ -57,7 +57,7 @@
     "bluebird": "3.5.4",
     "bunyan": "1.8.12",
     "bunyan-format": "0.2.1",
-    "conductor-client": "^1.0.2",
+    "conductor-client": "1.0.2",
     "dev-null": "0.1.1",
     "elasticsearch": "16.0.0",
     "fs-extra": "8.0.1",
@@ -67,7 +67,7 @@
     "koa-compress": "3.0.0",
     "koa-router": "7.4.0",
     "mongoose": "5.5.8",
-    "qs": "^6.7.0",
+    "qs": "6.7.0",
     "ramda": "0.26.1",
     "rascal": "4.4.0",
     "redis": "2.8.0",
