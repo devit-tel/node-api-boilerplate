@@ -6,5 +6,4 @@
 
 - Fix warning "TimeoutOverflowWarning" on node 10.15.3
 - CLI
-- Sample controller
-- Domains example
+- Health check, terminate state
