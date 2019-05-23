@@ -60,26 +60,17 @@ const config = {
         },
       },
     },
+    google: {
+      key: process.env.GOOGLE_MAP_KEY,
+    },
     services: {
       address: {
         baseURL: process.env.ADDRESS_BASE_URL,
         headers: {
-          Authorities: process.env.ADDRESS_AUTHORITIES || '{}',
+          'x-authorization': process.env.ADDRESS_AUTHORITIES || '{}',
         },
         timeout: 10000,
       },
-    },
-  },
-  services: {
-    address: {
-      baseURL: process.env.ADDRESS_BASEURL,
-      timeout: 30000,
-      headers: {
-        'x-authorization': process.env.ADDRESS_HEADERS_AUTHORIZATION,
-      },
-    },
-    google: {
-      key: process.env.GOOGLE_MAP_KEY,
     },
   },
   logger: {
