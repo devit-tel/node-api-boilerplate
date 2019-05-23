@@ -3,5 +3,5 @@ import config from '../config'
 
 export default (ctx, next) => {
   ctx.requestId = uuid(config.server.hostname, config.server.namespace)
-  next()
+  return next()
 }

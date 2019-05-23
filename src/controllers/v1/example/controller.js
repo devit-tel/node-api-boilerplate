@@ -10,31 +10,31 @@ import { jsonTryParse } from '../../../utils/common'
 @route('/v1/example')
 export default class ExampleController {
   @route('/', HttpMethod.POST)
-  async createExample(ctx) {
-    ctx.body = await createExample(ctx.request.body)
+  createExample(ctx) {
+    return createExample(ctx.request.body)
   }
 
   @route('/:exampleId', HttpMethod.GET)
-  async getExample(ctx) {
+  getExample(ctx) {
     const { exampleId } = ctx.params
-    ctx.body = await getExample(exampleId)
+    return getExample(exampleId)
   }
 
   @route('/', HttpMethod.GET)
-  async listExample(ctx) {
+  listExample(ctx) {
     const { query, ...options } = ctx.query
-    ctx.body = await listExample(jsonTryParse(query), parseMongooseOptions(options))
+    return listExample(jsonTryParse(query), parseMongooseOptions(options))
   }
 
   @route('/:exampleId', HttpMethod.PUT)
-  async updateExample(ctx) {
+  updateExample(ctx) {
     const { exampleId } = ctx.params
-    ctx.body = await updateExample(exampleId, ctx.request.body)
+    ctx.body = updateExample(exampleId, ctx.request.body)
   }
 
   @route('/:exampleId', HttpMethod.DELETE)
-  async deleteExample(ctx) {
+  deleteExample(ctx) {
     const { exampleId } = ctx.params
-    ctx.body = await deleteExample(exampleId)
+    ctx.body = deleteExample(exampleId)
   }
 }

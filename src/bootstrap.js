@@ -11,6 +11,7 @@ import requestId from './middlewares/requestId'
 import accessLogger from './middlewares/accessLogger'
 import errorHandler from './middlewares/errorHandler'
 import responseFormatter from './middlewares/responseFormatter'
+import errors from './errors'
 
 const logger = createLogger('app:bootstrap')
 const app = new Koa()
@@ -27,6 +28,13 @@ app.use(responseFormatter)
 logger.debug('Loading routers')
 const apiRouter = load(path.resolve(__dirname, 'controllers'), 'controller.js')
 app.use(apiRouter.routes())
+app.use(
+  apiRouter.allowedMethods({
+    throw: true,
+    notImplemented: () => new errors.NotImplemented('NotImplemented'),
+    methodNotAllowed: () => new errors.MethodNotAllowed('MethodNotAllowed'),
+  }),
+)
 
 const server = app.listen(config.server.port, config.server.host, undefined, () => {
   logger.debug(`Server started at ${config.server.host}:${config.server.port}`)

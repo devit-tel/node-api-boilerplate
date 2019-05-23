@@ -5,7 +5,6 @@ import { createLogger } from '../libraries/logger'
 const logger = createLogger('app:access')
 
 export default (ctx, next) => {
-  next()
   if (config.server.accessLogs) {
     logger.trace({
       request: {
@@ -14,4 +13,5 @@ export default (ctx, next) => {
       requestId: ctx.requestId,
     })
   }
+  return next()
 }
