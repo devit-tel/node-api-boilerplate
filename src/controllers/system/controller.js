@@ -13,4 +13,9 @@ export default class SystemController {
   monitor() {
     return getMonitor()
   }
+
+  @route('/delay', HttpMethod.GET)
+  async delay() {
+    await new Promise(resolve => setTimeout(() => resolve(), 30000))
+  }
 }

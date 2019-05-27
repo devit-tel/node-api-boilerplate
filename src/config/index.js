@@ -12,7 +12,7 @@ const config = {
     mongoDB: {
       enabled: !!process.env.MONGODB_ENABLED,
       uri: replaceVariable(process.env.MONGODB_URL, /\${DATABSE_NAME}/g, name),
-      options: {}, // overideOption
+      options: { useCreateIndex: true, useNewUrlParser: true }, // overideOption
     },
     redis: {
       enabled: process.env.REDIS_ENABLED,

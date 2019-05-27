@@ -1,3 +1,4 @@
+import R from 'ramda'
 import Probe, { STATES } from './Probe'
 import { createLogger } from '../logger'
 
@@ -17,16 +18,17 @@ export const createProbe = namespace => {
 }
 
 export const gracefulShutdown = () => {
-  const terminatingProbes = probes.filter(probe => {
+  const terminatingProbes = R.filter(probe => {
     if (probe.state === STATES.READY) {
       probe.shutdown()
     }
     return !probe.isReadyToTerminate()
-  })
-  if (!terminatingProbes.length) {
+  }, probes)
+  console.log(Object.keys(terminatingProbes).length)
+  if (!Object.keys(terminatingProbes).length) {
     process.exit()
   }
 }
 
 process.on('SIGTERM', gracefulShutdown)
-process.on('SIGINT', gracefulShutdown)
+// process.on('SIGINT', gracefulShutdown)
