@@ -1,4 +1,4 @@
-import { HttpMethod, route } from '@spksoft/koa-decorator'
+import { HttpMethod, route } from '@sendit-th/koa-decorator'
 import createExample from '../../../domains/example/create'
 import getExample from '../../../domains/example/get'
 import listExample from '../../../domains/example/list'

@@ -1,4 +1,4 @@
-import { HttpMethod, route } from '@spksoft/koa-decorator'
+import { HttpMethod, route } from '@sendit-th/koa-decorator'
 import getHealth from '../../domains/system/health'
 
 @route('/system')
