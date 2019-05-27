@@ -24,9 +24,9 @@ export default class Probe extends EventEmitter {
   }
 
   setWorker(note) {
-    const workerId = this.workerNumber + 1
-    this.workers.set(workerId, note)
-    return workerId
+    this.workerNumber += 1
+    this.workers.set(this.workerNumber, note)
+    return this.workerNumber
   }
 
   clearWorker(workerId) {
