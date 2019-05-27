@@ -24,7 +24,6 @@ export const gracefulShutdown = () => {
     }
     return !probe.isReadyToTerminate()
   }, probes)
-  console.log(Object.keys(terminatingProbes).length)
   if (!Object.keys(terminatingProbes).length) {
     process.exit()
   }

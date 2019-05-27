@@ -1,6 +1,4 @@
 import { EventEmitter } from 'events'
-import R from 'ramda'
-import uuid from 'uuid/v4'
 
 export const STATES = {
   READY: 'READY',
@@ -18,27 +16,25 @@ export default class Probe extends EventEmitter {
   constructor(namespace) {
     super()
     this.namespace = namespace
-    this.workers = {}
+    this.workerNumber = 0
+    this.workers = new Map()
     this.state = STATES.READY
     this.updatedAt = new Date()
     this.emit(EMIT_EVENTS.INIT)
   }
 
   setWorker(note) {
-    const workerId = uuid()
-    this.workers = {
-      ...this.workers,
-      [workerId]: note,
-    }
+    const workerId = this.workerNumber + 1
+    this.workers.set(workerId, note)
     return workerId
   }
 
   clearWorker(workerId) {
-    this.workers = R.omit([workerId], this.workers)
+    this.workers.delete(workerId)
   }
 
   isReadyToTerminate() {
-    return this.state === STATES.TERMINATED || Object.keys(this.workers).length === 0
+    return this.state === STATES.TERMINATED || this.workers.size === 0
   }
 
   terminated() {
