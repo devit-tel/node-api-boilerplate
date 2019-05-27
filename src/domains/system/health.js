@@ -1,10 +1,10 @@
-import appStat from './app'
-import { APP_STATES } from '../../constants/app'
-import Errors from '../../errors'
+import { probes } from '../../libraries/gracefulShutdown'
+import { STATES } from '../../libraries/gracefulShutdown/Probe'
+import errors from '../../errors'
 
 export default () => {
-  if (appStat.state === APP_STATES.SHUTING_DOWN) {
-    throw new Errors.ServiceUnavailable('App are shutting down')
+  if (probes['koa:http'].state !== STATES.READY) {
+    throw new errors.ServiceUnavailable('Server terminating')
   }
-  return appStat
+  return 'OK'
 }

@@ -4,9 +4,9 @@ import bodyParser from 'koa-bodyparser'
 import compress from 'koa-compress'
 import cors from '@koa/cors'
 import { load } from '@sendit-th/koa-decorator'
-import gracefulShutdown from 'http-graceful-shutdown'
 import config from './config'
 import { createLogger } from './libraries/logger'
+import gracefulShutdown from './middlewares/gracefulShutdown'
 import requestId from './middlewares/requestId'
 import accessLogger from './middlewares/accessLogger'
 import errorHandler from './middlewares/errorHandler'
@@ -17,6 +17,7 @@ const logger = createLogger('app:bootstrap')
 const app = new Koa()
 
 logger.debug('Setting up middlewares')
+app.use(gracefulShutdown)
 app.use(bodyParser())
 app.use(compress())
 app.use(cors())
@@ -36,8 +37,6 @@ app.use(
   }),
 )
 
-const server = app.listen(config.server.port, config.server.host, undefined, () => {
+app.listen(config.server.port, config.server.host, undefined, () => {
   logger.debug(`Server started at ${config.server.host}:${config.server.port}`)
 })
-
-gracefulShutdown(server)

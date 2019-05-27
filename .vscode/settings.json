@@ -4,5 +4,6 @@
   "prettier.eslintIntegration": true,
   "editor.tabSize": 2,
   "files.trimTrailingWhitespace": true,
-  "flow.useNPMPackagedFlow": true
+  "flow.useNPMPackagedFlow": true,
+  "typescript.validate.enable": false
 }

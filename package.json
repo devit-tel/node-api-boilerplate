@@ -61,7 +61,6 @@
     "dev-null": "0.1.1",
     "elasticsearch": "16.0.0",
     "fs-extra": "8.0.1",
-    "http-graceful-shutdown": "2.2.3",
     "koa": "2.7.0",
     "koa-bodyparser": "4.2.1",
     "koa-compress": "3.0.0",
