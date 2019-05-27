@@ -57,7 +57,7 @@
     "bluebird": "3.5.4",
     "bunyan": "1.8.12",
     "bunyan-format": "0.2.1",
-    "conductor-client": "1.0.3",
+    "conductor-client": "1.0.4",
     "dev-null": "0.1.1",
     "elasticsearch": "16.0.0",
     "fs-extra": "8.0.1",
