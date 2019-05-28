@@ -5,10 +5,13 @@ import config from '../../config'
 import filesLoader from '../filesLoader'
 import { createLogger } from '../logger'
 import { EXIT_CODES } from '../../constants/app'
+import { createProbe } from '../gracefulShutdown'
 
 const logger = createLogger('app:rascal')
 
 const SUBSCRIBERS_PATH = join(__dirname, './subscribers')
+
+const probe = createProbe('rascal:subscribe')
 
 let broker
 
@@ -41,8 +44,13 @@ export const initHandler = (subscriptionsName, handler) => {
       }
 
       subscription
-        .on('message', (message, content, ackOrNack) => {
-          handler(content, reponderMaker(ackOrNack, subscriptionsName), broker)
+        .on('message', async (message, content, ackOrNack) => {
+          const probeId = probe.setWorker(subscriptionsName)
+          try {
+            await handler(content, reponderMaker(ackOrNack, subscriptionsName), broker)
+          } finally {
+            probe.clearWorker(probeId)
+          }
         })
         .on('invalid_content', (subscriptionError, message, ackOrNack) => {
           ackOrNack(subscriptionError, {

@@ -4,9 +4,8 @@ import { STATES } from '../libraries/gracefulShutdown/Probe'
 const probe = createProbe('koa:http')
 
 export default async (ctx, next) => {
-  let probeId
+  const probeId = probe.setWorker(ctx.request.url)
   try {
-    probeId = probe.setWorker(ctx.request.url)
     await next()
   } finally {
     probe.clearWorker(probeId)

@@ -7,14 +7,13 @@ const logger = createLogger('koa:middlewares:graceful-shutdown')
 export const probes = {}
 
 export const createProbe = namespace => {
-  const probe = new Probe(namespace)
-  if (probes[namespace]) {
-    logger.error(`Probe ${namespace} already exists, please change namespace`)
-  } else {
+  if (!probes[namespace]) {
+    const probe = new Probe(namespace)
     probes[namespace] = probe
+    return probe
   }
 
-  return probe
+  return probes[namespace]
 }
 
 export const gracefulShutdown = () => {
