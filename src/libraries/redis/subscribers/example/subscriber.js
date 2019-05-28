@@ -13,17 +13,19 @@ const probe = createProbe('app:redis:subscriber')
 
 const redisSubscriber = redis.createClient(config.clients.redis)
 
-redisSubscriber.on('pmessage', (pattern, channel, message) => {
+redisSubscriber.on('pmessage', async (pattern, channel, message) => {
   const probeId = probe.setWorker(SUBSCRIPTIONS_PATTERN)
   try {
     console.log(`${message} => ${channel}`)
+    await new Promise(resolve => setTimeout(() => resolve(), 10000))
   } finally {
     probe.clearWorker(probeId)
   }
 })
 redisSubscriber.psubscribe(SUBSCRIPTIONS_PATTERN)
 
-probe.on('shutdown', () => {
+probe.on('shutdown', async () => {
   logger.info(`Unsubscribe ${SUBSCRIPTIONS_PATTERN}`)
-  redisSubscriber.unsubscribe()
+  await redisSubscriber.punsubscribe(SUBSCRIPTIONS_PATTERN)
+  logger.info(`Unsubscribe ${SUBSCRIPTIONS_PATTERN}`)
 })
