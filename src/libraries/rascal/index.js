@@ -6,12 +6,13 @@ import filesLoader from '../filesLoader'
 import { createLogger } from '../logger'
 import { EXIT_CODES } from '../../constants/app'
 import { createProbe } from '../gracefulShutdown'
+import { libraries } from '../../constants/namespace'
 
-const logger = createLogger('app:rascal')
+const logger = createLogger(libraries.LIBRARIES_RASCAL_CLIENT)
 
 const SUBSCRIBERS_PATH = join(__dirname, './subscribers')
 
-const probe = createProbe('rascal:subscribe')
+const probe = createProbe(libraries.LIBRARIES_RASCAL_CLIENT)
 
 let broker
 

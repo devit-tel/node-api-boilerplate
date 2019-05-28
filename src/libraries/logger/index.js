@@ -2,6 +2,7 @@ import bunyan from 'bunyan'
 import bunyanFormat from 'bunyan-format'
 import devNull from 'dev-null'
 import config from '../../config'
+import { libraries } from '../../constants/namespace'
 
 const formatter = bunyanFormat({ outputMode: 'short' })
 
@@ -52,7 +53,7 @@ export const createLogger = name => {
   return bunyan.createLogger(options)
 }
 
-const logger = createLogger('app:default')
+const logger = createLogger(libraries.LIBRARIES_DEFAULT_LOGGER)
 
 global.logger = logger
 

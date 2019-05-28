@@ -1,8 +1,9 @@
 import R from 'ramda'
 import Probe, { STATES } from './Probe'
 import { createLogger } from '../logger'
+import { libraries } from '../../constants/namespace'
 
-const logger = createLogger('koa:middlewares:graceful-shutdown')
+const logger = createLogger(libraries.LIBRARIES_GRACEFUL_SHUTDOWN)
 
 export const probes = {}
 
@@ -24,6 +25,7 @@ export const gracefulShutdown = () => {
     return !probe.isReadyToTerminate()
   }, probes)
   if (!Object.keys(terminatingProbes).length) {
+    logger.info('App graceful shutdown')
     process.exit()
   }
 }

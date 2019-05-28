@@ -2,10 +2,11 @@ import mongoose from 'mongoose'
 import { createLogger } from '../logger'
 import config from '../../config'
 import { EXIT_CODES } from '../../constants/app'
+import { libraries } from '../../constants/namespace'
 
 mongoose.Promise = global.Promise
 
-const logger = createLogger('app:database')
+const logger = createLogger(libraries.LIBRARIES_MONGOOSE)
 
 const mongooseConnector = async (uri, options) => {
   await mongoose.connect(uri, options)

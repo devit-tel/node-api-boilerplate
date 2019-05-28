@@ -4,12 +4,13 @@ import redis from 'redis'
 import { createLogger } from '../../../logger'
 import { createProbe } from '../../../gracefulShutdown'
 import config from '../../../../config'
+import { libraries } from '../../../../constants/namespace'
 
 export const SUBSCRIPTIONS_PATTERN = '__keyspace@0__:*'
 
-const logger = createLogger('app:redis:subscriber')
+const logger = createLogger(libraries.LIBRARIES_REDIS_SUBSCRIBER)
 
-const probe = createProbe('app:redis:subscriber')
+const probe = createProbe(libraries.LIBRARIES_REDIS_SUBSCRIBER)
 
 const redisSubscriber = redis.createClient(config.clients.redis)
 
