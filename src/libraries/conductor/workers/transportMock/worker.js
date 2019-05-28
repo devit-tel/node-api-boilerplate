@@ -1,9 +1,9 @@
 // This is an example file, please remove
 
 import uuid from 'uuid/v4'
-import conductorClient from '../..'
+import { registerWatcher } from '../..'
 
-conductorClient.registerWatcher(
+registerWatcher(
   'TMS_TRANSPORT_MOCK',
   async (data, updater) => {
     console.log('Im running', 'TMS_TRANSPORT_MOCK', data.taskId)

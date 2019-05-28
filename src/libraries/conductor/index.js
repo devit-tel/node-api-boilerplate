@@ -15,6 +15,21 @@ const { enabled, ...conductorConfig } = config.clients.conductor
 
 const conductorClient = new ConductorClient(conductorConfig)
 
+export const registerWatcher = (taskType, callback, options, startPolling) =>
+  conductorClient.registerWatcher(
+    taskType,
+    async (...args) => {
+      const probeId = probe.setWorker(taskType)
+      try {
+        await callback(...args)
+      } finally {
+        probe.clearWorker(probeId)
+      }
+    },
+    options,
+    startPolling,
+  )
+
 if (enabled) {
   if (existsSync(SUBSCRIBERS_PATH)) {
     filesLoader(SUBSCRIBERS_PATH, /.*worker\.js/is)

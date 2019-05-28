@@ -1,8 +1,8 @@
 // This is an example file, please remove
 
-import conductorClient from '../..'
+import { registerWatcher } from '../..'
 
-conductorClient.registerWatcher(
+registerWatcher(
   'TMS_SUMMARY_MOCK',
   async (data, updater) => {
     console.log('Im running', 'TMS_SUMMARY_MOCK', data.taskId)

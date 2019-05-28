@@ -1,8 +1,8 @@
 // This is an example file, please remove
 
-import conductorClient from '../..'
+import { registerWatcher } from '../..'
 
-conductorClient.registerWatcher(
+registerWatcher(
   'FLEET_FIND_DRIVER_FLOW_MOCK',
   async (data, updater) => {
     console.log('Im running', 'FLEET_FIND_DRIVER_FLOW_MOCK', data.taskId)
@@ -19,6 +19,7 @@ conductorClient.registerWatcher(
       },
       callbackAfterSeconds: Number.MAX_SAFE_INTEGER,
     })
+    await new Promise(resolve => setTimeout(() => resolve(), 30000))
     await updater.complete({
       outputData: {
         statuses: [
