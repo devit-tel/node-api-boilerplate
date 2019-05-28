@@ -91,3 +91,8 @@ if (config.clients.rascal.enabled) {
     }
   })
 }
+
+probe.on('shutdown', () => {
+  logger.info('Unsubscribe all')
+  broker.unsubscribeAll()
+})
