@@ -17,6 +17,7 @@ const config = {
     redis: {
       enabled: process.env.REDIS_ENABLED,
       host: process.env.REDIS_HOST,
+      db: null,
     },
     elasticSearch: {
       host: process.env.ELASTICSEARCH_HOST,
