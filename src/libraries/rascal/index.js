@@ -78,7 +78,7 @@ if (config.clients.rascal.enabled) {
     }
     broker = bk
     if (existsSync(SUBSCRIBERS_PATH)) {
-      const subscribers = await filesLoader(SUBSCRIBERS_PATH, /.*subscriber\.js/is)
+      const subscribers = await filesLoader(SUBSCRIBERS_PATH, /.*subscriber\.js$/is)
       for (const { SUBSCRIPTIONS_NAME, handler } of subscribers) {
         if (SUBSCRIPTIONS_NAME && handler) {
           initHandler(SUBSCRIPTIONS_NAME, handler)

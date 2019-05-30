@@ -33,7 +33,7 @@ export const registerWatcher = (taskType, callback, options, startPolling) =>
 
 if (enabled) {
   if (existsSync(SUBSCRIBERS_PATH)) {
-    filesLoader(SUBSCRIBERS_PATH, /.*worker\.js/is)
+    filesLoader(SUBSCRIBERS_PATH, /.*worker\.js$/is)
   }
 }
 

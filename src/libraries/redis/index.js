@@ -13,7 +13,7 @@ const { enabled, ...redisConfig } = config.clients.redis
 
 if (enabled) {
   if (existsSync(SUBSCRIBERS_PATH)) {
-    filesLoader(SUBSCRIBERS_PATH, /.*subscriber\.js/is)
+    filesLoader(SUBSCRIBERS_PATH, /.*subscriber\.js$/is)
   }
 }
 
